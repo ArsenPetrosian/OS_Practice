@@ -4,6 +4,8 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
+#include <string>
 
 int main(int argc, char** argv)
 {
@@ -23,9 +25,12 @@ int main(int argc, char** argv)
     int file2{};
     if(argc > 2)
     {
-        if(argc == 3 || (argc == 4 && strcmp(argv[3], "NO") == 0))
+        printf("%s", "Do you want to override the file? YES|NO\n");
+        std::string answer;
+        std::cin >> answer;
+        if(answer == "NO")
             file2 = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0666);
-        else if(argc == 4 && strcmp(argv[3], "YES") == 0)
+        else if(answer == "YES")
             file2 = open(argv[2], O_WRONLY, 0666);
         else
         {
